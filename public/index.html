@@ -3,9 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Students</title>
 </head>
 <body>
+    <h1>รายชื่อนักเรียน</h1>
+    <hr>
+
+    <button onclick="loadStudents">โหลดข้อมูลนักเรียน</button>
+    <ul id="studentList"></ul>
     
+    <script>
+        async function loadStudents() {
+            const response = await fetch("/students");
+            const students = await response.json();
+            const list = document.getElementById("studentList");
+            
+            list.innerHTML = "";
+            
+            students.forEach(student => {        
+                list.innerHTML +=  `
+                    <li>${student.id} - ${student.name}</li>
+                `;
+            });
+        }
+    </script>   
 </body>
 </html>
